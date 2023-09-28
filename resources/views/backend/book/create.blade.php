@@ -3,15 +3,15 @@
 @section('content')
 
 
-<form  enctype="multipart/form-data" method="POST" action="{{route('category.store')}}">
-@csrf
+<form enctype="multipart/form-data" method="POST" action="{{route('book.store')}}">
+    @csrf
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <strong class="fs-3">THÊM DANH MỤC</strong>
+                        <strong class="fs-3">THÊM SÁCH</strong>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -34,7 +34,7 @@
                             <button name="THEM" type="submit" class="btn btn-sm btn-primary">
                                 <i class="fas fa-save"></i> Lưu[Thêm]
                             </button>
-                            <a class="btn btn-sm btn-success" href="{{route('category.index')}}">
+                            <a class="btn btn-sm btn-success" href="{{route('book.index')}}">
                                 <i class="fas fa-arrow-left"></i> Quay về danh sách
                             </a>
                         </div>
@@ -47,26 +47,31 @@
                         {{(session('status'))}}
                     </div>
                     @endif
-                    <div class="row"  >
-                 
+                    <div class="row">
+
                         <div class="col-md-7">
                             <div class="mb-3">
                                 <label for="name">Tên thể loại</label>
                                 <input name="name" id="name" value="{{old('name')}}" type="text" class="form-control" required
-                                    placeholder="Nhập tên thể loại">
+                                    placeholder="Nhập tên sách">
                             </div>
                             <div class="mb-3">
-                                <label for="name">Slug</label>
-                                <input name="slug" id="slug" value="{{old('slug')}}" type="text" class="form-control" required
-                                    >
+                                <label for="slug">Slug</label>
+                                <input name="slug" value="{{old('slug')}}" id="slug" type="text" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label for="meta_desc">Mô tả</label>
-                                <textarea name="meta_desc" id="meta_desc" value="{{old('meta_desc')}}" 
-                                class="form-control" rows="3" required
-                                    placeholder=""></textarea>
+                                <label for="">Thể loại</label>
+                                <select name="category" id="" class="form-control">
+                                    <option>Chọn thể loại</option>
+                                    @foreach($category as $key => $cat)
+                                    <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-            
+                            <div class="mb-3">
+                                <label for="image">Hình ảnh</label>
+                                <input name="image" id="image" type="file" class="form-control">
+                            </div>
 
                             <div class="mb-3">
                                 <label for="status">Trạng thái</label>
@@ -78,19 +83,19 @@
 
                         </div>
 
-                      
+
                     </div>
                 </div>
             </div>
 
-                <!-- /.card-body -->
-                
-                <!-- /.card-footer-->
-            </div>
-            <!-- /.card -->
+            <!-- /.card-body -->
 
-        </section>
-        <!-- /.content -->
+            <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
     </div>
 
 </form>

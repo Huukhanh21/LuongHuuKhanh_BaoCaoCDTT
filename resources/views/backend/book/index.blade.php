@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <strong class="fs-3">TẤT CẢ THỂ LOẠI</strong>
+                    <strong class="fs-3">TẤT CẢ SÁCH</strong>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -31,12 +31,12 @@
                     <div class="col-md-6">
 
                     </div>
-                    <div class="  text-right">
-                        <a href="{{route('category.create')}}" class="btn btn-sm btn-success">
+                    <div class="text-right">
+                        <a href="{{route('book.create')}}" class="btn btn-sm btn-success">
                             <i class="fas fa-plus"></i> Thêm
                         </a>
-                        <a href="{{ route('category.trash') }}" class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>Thùng rác
+                        <a href="{{ route('book.trash') }}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
                         </a>
                     </div>
                 </div>
@@ -53,27 +53,31 @@
                             <th class="text-center" style="width: 30px;">
                                 <input type="checkbox" name="checkAll" />
                             </th>
-                            <th class="text-center">Tên thể loại</th>
+                            <th class="text-center" style="width: 80px;">Ảnh bìa</th>
+
+                            <th class="text-center">Tên sách</th>
+                            <th class="text-center">Thể loại</th>
                             <th class="text-center">Slug</th>
-                            <th class="text-center" style="width: 800px;">Mô tả</th>
                             <th class="text-center" style="width: 200px;">Ngày tạo</th>
                             <th class="text-center" style="width: 200px;">Chức năng</th>
                             <th class="text-center" style="width: 30px;">ID</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($category as $key => $cat)
+                        @foreach($book as $key => $bookk)
                         <tr>
                             <td class="text-center">
                                 <input type="checkbox" name="checkID[]" value="" />
                             </td>
-
-                            <td class="text-center">{{$cat->name}}</td>
-                            <td class="text-center">{{$cat->slug}}</td>
-                            <td>{{$cat->meta_desc}}</td>
-                            <td class="text-center">{{$cat->created_at}}</td>
+                            <td class="text-center" >
+                                <img src="{{asset('public/image/book/' .$bookk->image)}}" height="100" width="80" alt="">
+                            </td>
+                            <td class="text-center">{{$bookk->name}}</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">{{$bookk->slug}}</td>
+                            <td class="text-center">{{$bookk->created_at}}</td>
                             <td class="text-center">
-                                @if($cat->status==1)
+                                @if($bookk->status==1)
                                 <a class="btn btn-sm btn-success">
                                     <i class="fas fa-toggle-on"></i>
                                 </a>
@@ -83,10 +87,10 @@
                                 </a>
                                 @endif
 
-                                <a href="{{ route('category.edit', [$cat->id])}}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('book.edit', [$bookk->id])}}" class="btn btn-sm btn-primary">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a href="{{ route('category.delete', [$cat->id])}}" class="btn btn-sm btn-danger">
+                                <a href="{{ route('book.delete', [$bookk->id])}}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-times"></i>
                                 </a>
 
@@ -98,9 +102,7 @@
                 </table>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-
-            </div>
+           
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->

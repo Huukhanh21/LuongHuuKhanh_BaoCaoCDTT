@@ -20,6 +20,6 @@
     <body class="antialiased">
         <img src="public/image/partner_3.png" alt="">
      frontend
-     <i class="fas fa-yin-yang"></i> Thêm
+ 
     </body>
 </html>

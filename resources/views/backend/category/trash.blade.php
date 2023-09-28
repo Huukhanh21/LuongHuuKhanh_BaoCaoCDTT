@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('layouts.menu')
+
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <strong class="fs-3">TẤT CẢ THỂ LOẠI</strong>
+                    <strong class="fs-3">THÙNG RÁC THỂ LOẠI</strong>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -32,12 +32,10 @@
 
                     </div>
                     <div class="  text-right">
-                        <a href="{{route('category.create')}}" class="btn btn-sm btn-success">
-                            <i class="fas fa-plus"></i> Thêm
-                        </a>
-                        <a href="{{ route('category.trash') }}" class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>Thùng rác
-                        </a>
+                        
+                        <a class="btn btn-sm btn-success" href="{{route('category.index')}}">
+                                <i class="fas fa-arrow-left"></i> Quay về danh sách
+                            </a>
                     </div>
                 </div>
             </div>
@@ -73,21 +71,13 @@
                             <td>{{$cat->meta_desc}}</td>
                             <td class="text-center">{{$cat->created_at}}</td>
                             <td class="text-center">
-                                @if($cat->status==1)
-                                <a class="btn btn-sm btn-success">
-                                    <i class="fas fa-toggle-on"></i>
-                                </a>
-                                @else
-                                <a href="" class="btn btn-sm btn-danger">
-                                    <i class="fas fa-toggle-off"></i>
-                                </a>
-                                @endif
+                            
 
-                                <a href="{{ route('category.edit', [$cat->id])}}" class="btn btn-sm btn-primary">
-                                    <i class="far fa-edit"></i>
+                                <a href="{{route('category.restore', [$cat->id])}}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-undo"></i>
                                 </a>
-                                <a href="{{ route('category.delete', [$cat->id])}}" class="btn btn-sm btn-danger">
-                                    <i class="fas fa-times"></i>
+                                <a href="{{route('category.destroy', [$cat->id])}}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-ban"></i>
                                 </a>
 
                             </td>

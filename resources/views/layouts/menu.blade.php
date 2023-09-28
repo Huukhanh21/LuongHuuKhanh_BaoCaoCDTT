@@ -24,16 +24,14 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{route('category.index')}}">Thể loại</a></li>
                       
-                                    <li><a class="dropdown-item" href="#">Tác giả</a></li>
-                                    <li><a class="dropdown-item" href="#">Tất cả sách</a></li>
+                                    <li><a class="dropdown-item" href="">Tác giả</a></li>
+                                    <li><a class="dropdown-item" href="{{route('book.index')}}">Tất cả sách</a></li>
                                  
                             
                                 </ul>
                             </li>
                         
-                            <li class="nav-item">
-                                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                            </li>
+                         
                         </ul>
                         <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

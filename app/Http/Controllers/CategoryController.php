@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 
 class CategoryController extends Controller
 {
@@ -13,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('backend.category.index');
+        $category = Category::where('status','!=',0, )->orderBy('id', 'ASC')->get();
+        return view('backend.category.index')->with(compact('category'));
     }
 
     /**
@@ -25,6 +28,49 @@ class CategoryController extends Controller
     {
         return view('backend.category.create');
     }
+    /**
+     *
+     *trash
+     */
+    public function trash()
+    {
+        $category = Category::where('status','=',0,)->orderby('id','ASC')->get();
+        return view('backend.category.trash')->with(compact('category'));
+    }
+  /**
+     *
+     *delete
+     */
+    public function delete($id)
+    {
+        $category = Category::find($id);
+        $category ->status = 0;
+        $category->updated_at = date('Y-m-d H:i:s');
+        $category->save();
+        return redirect()->back()->with('status','Xóa thể loại thành công');
+    }
+
+
+    public function status($id)
+    {
+        $category = Category::find($id);
+        $category ->status = ($category->status == 1) ? 2 : 1;
+        $category->updated_at = date('Y-m-d H:i:s');
+        $category->save();
+        return redirect()->route("category.index")->with('status','Thay đổi trạng thái thành công');
+    }
+
+
+    public function restore($id)
+    {
+        
+        $category = Category::find($id);
+        $category ->status = 2;
+        $category->updated_at = date('Y-m-d H:i:s');
+        $category->save();
+        return redirect()->route("category.trash")->with('status','Khôi phục thành công');
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -34,7 +80,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|unique:category',
+            'meta_desc' => 'required',
+            'status' => 'required',
+            'slug' => 'required',
+          
+        ]);
+        $category = new Category();
+        $category->name = $data['name'];
+        $category->slug = $data['slug'];
+        $category->meta_desc = $data['meta_desc'];
+        $category->status = $data['status'];
+        $category->created_at = date('Y-m-d H:i:s');
+
+        $category->save();
+        return redirect()->back()->with('status','Thêm thể loại thành công');
+
     }
 
     /**
@@ -54,9 +116,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $cat = Category::find($slug);
+        return view('backend.category.edit')->with(compact('cat'));
+
     }
 
     /**
@@ -68,7 +132,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'meta_desc' => 'required',
+            'status' => 'required',
+            'slug' => 'required',
+
+          
+        ]);
+        $category = Category::find($id);
+        $category->name = $data['name'];
+        $category->slug = $data['slug'];
+        $category->meta_desc = $data['meta_desc'];
+        $category->status = $data['status'];
+        $category->save();
+        return redirect()->back()->with('status','Cập nhật thể loại thành công');
     }
 
     /**
@@ -79,6 +157,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if ($category->delete($id)) {
+            return redirect()->route('category.trash')->with('status','Xóa khỏi thùng rác thành công');
     }
+
+    }
+   
+  
 }
