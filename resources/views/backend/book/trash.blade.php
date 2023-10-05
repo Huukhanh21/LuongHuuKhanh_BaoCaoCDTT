@@ -50,10 +50,10 @@
                             <th class="text-center" style="width: 30px;">
                                 <input type="checkbox" name="checkAll" />
                             </th>
-                            <th class="text-center" style="width: 80px;">Ảnh bìa</th>
+                            <th class="text-center" style="width: 80px;">Ảnh</th>
 
-                            <th class="text-center">Tên sách</th>
-                            <th class="text-center">Thể loại</th>
+                            <th class="text-center">Tên sản phẩm</th>
+                            <th class="text-center">Danh mục</th>
                       
                             <th class="text-center">Slug</th>
                             <th class="text-center" style="width: 200px;">Ngày tạo</th>

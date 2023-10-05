@@ -13,19 +13,26 @@
                                 <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Trang người dùng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{route('home')}}">Trang chủ</a>
+                                <a class="nav-link active" aria-current="page" href="{{route('admin')}}">Trang chủ</a>
                             </li>
                         
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    Danh mục
+                                    Danh sách
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{route('category.index')}}">Thể loại</a></li>
+                                    <li><a class="dropdown-item" href="{{route('category.index')}}">Danh mục</a></li>
                       
-                                    <li><a class="dropdown-item" href="">Tác giả</a></li>
-                                    <li><a class="dropdown-item" href="{{route('book.index')}}">Tất cả sách</a></li>
+                                    <li><a class="dropdown-item" href="{{route('brand.index')}}">Thương hiệu</a></li>
+                                    <li><a class="dropdown-item" href="{{route('book.index')}}">Sản phẩm</a></li>
+                                    <li><a class="dropdown-item" href="">Liên hệ</a></li>
+                                    <li><a class="dropdown-item" href="">Khách hàng</a></li>
+                                    <li><a class="dropdown-item" href="">Người dùng</a></li>
+                                    <li><a class="dropdown-item" href="">Đơn hàng</a></li>
+                                    <li><a class="dropdown-item" href="">Bài viết</a></li>
+                                    <li><a class="dropdown-item" href="">Chủ đề</a></li>
+                                    <li><a class="dropdown-item" href="">Banner</a></li>
                                  
                             
                                 </ul>

@@ -11,15 +11,20 @@
         </title>
 
         <!-- Fonts -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"  />
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
         <!-- Styles -->
    
     </head>
     <body class="antialiased">
-        <img src="public/image/partner_3.png" alt="">
-     frontend
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    @include('frontend.menu')
+    @include('frontend.banner')
+    @include('frontend.contact')
+
  
     </body>
 </html>

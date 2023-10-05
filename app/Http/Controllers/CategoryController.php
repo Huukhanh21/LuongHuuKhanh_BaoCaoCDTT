@@ -47,7 +47,7 @@ class CategoryController extends Controller
         $category ->status = 0;
         $category->updated_at = date('Y-m-d H:i:s');
         $category->save();
-        return redirect()->back()->with('status','Xóa thể loại thành công');
+        return redirect()->back()->with('status','Xóa danh mục thành công');
     }
 
 
@@ -95,7 +95,7 @@ class CategoryController extends Controller
         $category->created_at = date('Y-m-d H:i:s');
 
         $category->save();
-        return redirect()->back()->with('status','Thêm thể loại thành công');
+        return redirect()->back()->with('status','Thêm danh mục thành công');
 
     }
 
@@ -146,7 +146,7 @@ class CategoryController extends Controller
         $category->meta_desc = $data['meta_desc'];
         $category->status = $data['status'];
         $category->save();
-        return redirect()->back()->with('status','Cập nhật thể loại thành công');
+        return redirect()->back()->with('status','Cập nhật danh mục thành công');
     }
 
     /**

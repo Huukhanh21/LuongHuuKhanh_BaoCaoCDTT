@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Category;
+use App\Models\Brand;
+
 
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book = Book::with('category')->where('status','!=',0)->orderBy('id', 'ASC')->get();
-        return view('backend.book.index')->with(compact('book'));
+        $brand = Brand::where('status','!=',0)->orderBy('id', 'ASC')->get();
+        return view('backend.brand.index')->with(compact('brand'));
     }
-   
+    
 
     /**
      * Show the form for creating a new resource.
@@ -28,44 +28,41 @@ class BookController extends Controller
      */
     public function create()
     {
-        $category = Category::where('status','!=',[0,2])->orderBy('id', 'ASC')->get();
-
-        return view('backend.book.create')->with(compact('category'));
-
+        return view('backend.brand.create');
     }
     public function trash()
     {
-        $book = Book::where('status','=',0,)->orderby('id','ASC')->get();
-        return view('backend.book.trash')->with(compact('book'));
+        $brand = Brand::where('status','=',0,)->orderby('id','ASC')->get();
+        return view('backend.brand.trash')->with(compact('brand'));
     }
 
     public function delete($id)
     {
-        $book = Book::find($id);
-        $book->status = 0;
-        $book->updated_at = date('Y-m-d H:i:s');
-        $book->save();
-        return redirect()->back()->with('status','Xóa thể loại thành công');
+        $brand = Brand::find($id);
+        $brand->status = 0;
+        $brand->updated_at = date('Y-m-d H:i:s');
+        $brand->save();
+        return redirect()->back()->with('status','Xóa thương hiệu thành công');
     }
 
 
     public function status($id)
     {
-        $book = Book::find($id);
-        $book ->status = ($book->status == 1) ? 2 : 1;
-        $book->updated_at = date('Y-m-d H:i:s');
-        $book->save();
-        return redirect()->route("category.index")->with('status','Thay đổi trạng thái thành công');
+        $brand = Brand::find($id);
+        $brand ->status = ($brand->status == 1) ? 2 : 1;
+        $brand->updated_at = date('Y-m-d H:i:s');
+        $brand->save();
+        return redirect()->route("brand.index")->with('status','Thay đổi trạng thái thành công');
     }
 
     public function restore($id)
     {
         
-        $book = Book::find($id);
-        $book ->status = 2;
-        $book->updated_at = date('Y-m-d H:i:s');
-        $book->save();
-        return redirect()->route("book.trash")->with('status','Khôi phục thành công');
+        $brand = Brand::find($id);
+        $brand ->status = 2;
+        $brand->updated_at = date('Y-m-d H:i:s');
+        $brand->save();
+        return redirect()->route("brand.trash")->with('status','Khôi phục thành công');
     }
 
 
@@ -82,21 +79,21 @@ class BookController extends Controller
       
         $data = $request->validate([
           
-            'name' => 'required|unique:book|max:255',
+            'name' => 'required|unique:brand|max:255',
             'status' => 'required',
-            'category' => 'required',
-            'slug' => 'required|unique:book|max:255',
+            'metadesc' => 'required',
+            'slug' => 'required|unique:brand|max:255',
             "image" => 'required|image|mimes:jpg,png,jpep,gif,svg|max:2048|
             dimensions:min_width:100,minheight:100,max_width:1000,max_height:1000',
            
           
         ]);
-        $book = new Book();
-        $book->name = $data['name'];
-        $book->slug = $data['slug'];
-        $book->status = $data['status'];
-        $book->created_at = date('Y-m-d H:i:s');
-        $book->category_id = $data['category'];
+        $brand = new Brand();
+        $brand->name = $data['name'];
+        $brand->slug = $data['slug'];
+        $brand->status = $data['status'];
+        $brand->created_at = date('Y-m-d H:i:s');
+    
 
        // Lấy file ảnh từ request
 $image = $request->file('image');
@@ -111,18 +108,18 @@ if ($image) {
     $newImageName = time() . '_' . rand(0, 99) . '.' . $extension;
 
     // Di chuyển file ảnh vào thư mục lưu trữ
-    $image->move(public_path('image/book'), $newImageName);
+    $image->move(public_path('image/brand'), $newImageName);
 
-    // Gán tên mới của file ảnh vào trường 'image' của đối tượng book
-    $book->image = $newImageName;
+    // Gán tên mới của file ảnh vào trường 'image' của đối tượng Brand
+    $brand->image = $newImageName;
 } else {
-    $book->image = 'default_image.jpg';
+    $brand->image = 'default_image.jpg';
 }
 
 
 
-        $book->save();
-        return redirect()->back()->with('status','Thêm sách thành công');
+        $brand->save();
+        return redirect()->back()->with('status','Thêm thương hiệu thành công');
 }
 
     /**
@@ -168,9 +165,9 @@ if ($image) {
    
     public function destroy($id)
     {
-        $book = Book::find($id);
-        if ($book->delete($id)) {
-            return redirect()->route('book.trash')->with('status','Xóa khỏi thùng rác thành công');
+        $brand = Brand::find($id);
+        if ($brand->delete($id)) {
+            return redirect()->route('brand.trash')->with('status','Xóa khỏi thùng rác thành công');
     }
 
     }

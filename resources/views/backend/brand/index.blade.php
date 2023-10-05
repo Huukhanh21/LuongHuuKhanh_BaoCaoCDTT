@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <strong class="fs-3">TẤT CẢ SẢN PHẨM</strong>
+                    <strong class="fs-3">TẤT CẢ THƯƠNG HIỆU</strong>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -32,10 +32,10 @@
 
                     </div>
                     <div class="text-right">
-                        <a href="{{route('book.create')}}" class="btn btn-sm btn-success">
+                        <a href="{{route('brand.create')}}" class="btn btn-sm btn-success">
                             <i class="fas fa-plus"></i> Thêm
                         </a>
-                        <a href="{{ route('book.trash') }}" class="btn btn-sm btn-danger">
+                        <a href="{{ route('brand.trash') }}" class="btn btn-sm btn-danger">
                             <i class="fas fa-trash"></i>
                         </a>
                     </div>
@@ -53,10 +53,10 @@
                             <th class="text-center" style="width: 30px;">
                                 <input type="checkbox" name="checkAll" />
                             </th>
-                            <th class="text-center" style="width: 80px;">Ảnh bìa</th>
+                            <th class="text-center" style="width: 80px;">Ảnh</th>
 
-                            <th class="text-center">Tên sản phẩm</th>
-                            <th class="text-center">Danh mục</th>
+                            <th class="text-center">Tên thương hiệu</th>
+                          
                             <th class="text-center">Slug</th>
                             <th class="text-center" style="width: 200px;">Ngày tạo</th>
                             <th class="text-center" style="width: 200px;">Chức năng</th>
@@ -64,20 +64,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($book as $key => $bookk)
+                        @foreach($brand as $key => $brand)
                         <tr>
                             <td class="text-center">
                                 <input type="checkbox" name="checkID[]" value="" />
                             </td>
                             <td class="text-center" >
-                                <img src="{{asset('public/image/book/' .$bookk->image)}}" height="100" width="80" alt="">
+                                <img src="{{asset('public/image/brand/' .$brand->image)}}" height="100" width="80" alt="">
                             </td>
-                            <td class="text-center">{{$bookk->name}}</td>
-                            <td class="text-center"></td>
-                            <td class="text-center">{{$bookk->slug}}</td>
-                            <td class="text-center">{{$bookk->created_at}}</td>
+                            <td class="text-center">{{$brand->name}}</td>
+                         
+                            <td class="text-center">{{$brand->slug}}</td>
+                            <td class="text-center">{{$brand->created_at}}</td>
                             <td class="text-center">
-                                @if($bookk->status==1)
+                                @if($brand->status==1)
                                 <a class="btn btn-sm btn-success">
                                     <i class="fas fa-toggle-on"></i>
                                 </a>
@@ -87,10 +87,10 @@
                                 </a>
                                 @endif
 
-                                <a href="{{ route('book.edit', [$bookk->id])}}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('brand.edit', [$brand->id])}}" class="btn btn-sm btn-primary">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a href="{{ route('book.delete', [$bookk->id])}}" class="btn btn-sm btn-danger">
+                                <a href="{{ route('brand.delete', [$brand->id])}}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-times"></i>
                                 </a>
 

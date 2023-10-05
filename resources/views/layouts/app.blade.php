@@ -26,7 +26,7 @@
         <img src="public/image/logo.png" alt="" style="height: 60px;">
             <div class="container">
               
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('admin') }}">
                      
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
