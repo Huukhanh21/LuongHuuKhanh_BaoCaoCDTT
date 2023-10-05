@@ -7,7 +7,7 @@
         <link rel="icon" href="public/image/partner_3.png" type="image/x-icon">
         <title>
       
-            Skybooks
+            Moto Đăng Khoa
         </title>
 
         <!-- Fonts -->
@@ -21,6 +21,7 @@
     </head>
     <body class="antialiased">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <img src="" alt="">
     @include('frontend.menu')
     @include('frontend.banner')
     @include('frontend.contact')
