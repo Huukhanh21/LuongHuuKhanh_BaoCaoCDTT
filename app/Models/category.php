@@ -15,9 +15,9 @@ class Category extends Model
     protected $primaryKey = 'id';
     protected $table = 'category';
 
-    public function book()
+    public function product()
     {
-        return $this -> hasMany('App\Models\Book');
+        return $this -> hasMany('App\Models\Product');
     }
 
 }

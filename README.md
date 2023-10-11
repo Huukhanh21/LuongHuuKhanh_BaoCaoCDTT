@@ -5,4 +5,4 @@ MSSV: 2121110299
 Lớp: CCQ2111I
 ## Tên đề tài: xây dựng website bán xe moto
 ## Công nghệ: Laravel
-### Tuần 5 từ ngày 5/10: giao diện và các chức năng backend và đăng nhập, đăng xuất, đăng kí tài khoản admin 
+### Tuần 6 ngày 11/10: giao diện và các chức năng backend và đăng nhập, đăng xuất, đăng kí tài khoản admin , giao diện frontend

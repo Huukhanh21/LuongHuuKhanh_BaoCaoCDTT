@@ -1,12 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
+@include('backend.menuadmin')
 
 
 <form enctype="multipart/form-data" method="POST" action="{{route('category.update',[$cat->id])}}">
     @method('PUT')
     @csrf
     <div class="content-wrapper">
+        <x-app-layout>
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -32,7 +31,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col md-12 text-right">
-                            <button name="CAPNHAT" type="submit" class="btn btn-sm btn-primary">
+                            <button name="CAPNHAT" type="submit" class="btn btn-sm btn-primary bg-primary">
                                 <i class="fas fa-save"></i> Lưu[Cập nhật]
                             </button>
                             <a class="btn btn-sm btn-success" href="{{route('category.index')}}">
@@ -90,7 +89,7 @@
     </section>
     <!-- /.content -->
     </div>
+</x-app-layout>
 
 </form>
 
-@endsection

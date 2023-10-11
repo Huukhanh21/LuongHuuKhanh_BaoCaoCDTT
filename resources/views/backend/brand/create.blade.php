@@ -1,11 +1,10 @@
-@extends('layouts.app')
-
-@section('content')
+@include('backend.menuadmin')
 
 
 <form enctype="multipart/form-data" method="POST" action="{{route('brand.store')}}">
     @csrf
     <div class="content-wrapper">
+        <x-app-layout>
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -31,7 +30,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col md-12 text-right">
-                            <button name="THEM" type="submit" class="btn btn-sm btn-primary">
+                            <button name="THEM" type="submit" class="btn btn-sm btn-primary bg-primary">
                                 <i class="fas fa-save"></i> Lưu[Thêm]
                             </button>
                             <a class="btn btn-sm btn-success" href="{{route('brand.index')}}">
@@ -59,6 +58,13 @@
                                 <label for="slug">Slug</label>
                                 <input name="slug" value="{{old('slug')}}" id="slug" type="text" class="form-control" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="metadesc">Mô tả</label>
+                                <textarea name="metadesc" id="meta_desc" value="{{old('meta_desc')}}" 
+                                class="form-control" rows="3" required
+                                    placeholder=""></textarea>
+                            </div>
+            
                           
                             <div class="mb-3">
                                 <label for="image">Hình ảnh</label>
@@ -89,7 +95,7 @@
     </section>
     <!-- /.content -->
     </div>
+</x-app-layout>
 
 </form>
 
-@endsection

@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-@include('layouts.menu')
+@include('backend.menuadmin')
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,10 +25,8 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-6">
-
-                    </div>
-                    <div class="text-right">
+                  
+                    <div class=" text-right">
                         <a href="{{route('brand.create')}}" class="btn btn-sm btn-success">
                             <i class="fas fa-plus"></i> Thêm
                         </a>
@@ -70,7 +65,7 @@
                                 <input type="checkbox" name="checkID[]" value="" />
                             </td>
                             <td class="text-center" >
-                                <img src="{{asset('public/image/brand/' .$brand->image)}}" height="100" width="80" alt="">
+                                <img src="{{asset('image/brand/' .$brand->image)}}" height="100" width="80" alt="">
                             </td>
                             <td class="text-center">{{$brand->name}}</td>
                          
@@ -111,4 +106,3 @@
     <!-- /.content -->
 </div>
 
-@endsection

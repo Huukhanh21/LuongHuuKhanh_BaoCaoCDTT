@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\backend\ContactController;
+use App\Http\Controllers\backend\BannerController;
+use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\frontend\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,17 +19,17 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/', function () {
-    return view('homefront');
-});
-Route::get('/product/{id}',[ IndexController::class,'product']);
+Route::get('/', [IndexController::class,'home'])->name('home');
+
+Route::get('/productsale/{id}',[IndexController::class,'productsale']);
+Route::get('/detail',[IndexController::class,'detail'])->name('product.detail');
 
 
 
-Auth::routes();
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('admin');
+Route::middleware(['auth'])->group(function () {
+Route::get('/admin', [HomeController::class, 'index'])->name('admin');
 
 Route::prefix('admin')->group(function () {
     Route::get('category/trash', [CategoryController::class, 'trash'])->name('category.trash');
@@ -42,16 +44,15 @@ Route::prefix('admin')->group(function () {
     });
     
     
-    
-    Route::get('book/trash', [BookController::class, 'trash'])->name('book.trash');
-    Route::resource('/book', BookController::class);
-    Route::prefix('book')->group(function () {
-        Route::get('delete/{book}', [BookController::class, 'delete'])->name('book.delete');
-        Route::get('delete/{book}', [BookController::class, 'delete'])->name('book.delete');
-        Route::get('restore/{book}', [BookController::class, 'restore'])->name('book.restore');
-        Route::get('status/{book}', [BookController::class, 'status'])->name('book.status');
-        Route::get('destroy/{book}', [BookController::class, 'destroy'])->name('book.destroy');
-        
+
+    Route::get('product/trash', [ProductController::class, 'trash'])->name('product.trash');
+    Route::resource('/product', ProductController::class);
+    Route::prefix('product')->group(function () {
+        Route::get('delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
+        Route::get('restore/{product}', [ProductController::class, 'restore'])->name('product.restore');
+        Route::get('status/{product}', [ProductController::class, 'status'])->name('product.status');
+        Route::get('destroy/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
     });
 
 
@@ -62,9 +63,35 @@ Route::prefix('admin')->group(function () {
         Route::get('restore/{brand}', [BrandController::class, 'restore'])->name('brand.restore');
         Route::get('status/{brand}', [BrandController::class, 'status'])->name('brand.status');
         Route::get('destroy/{brand}', [BrandController::class, 'destroy'])->name('brand.destroy');
-        
     });
     
-    
+    Route::get('contact/trash', [ContactController::class, 'trash'])->name('contact.trash');
+    Route::resource('/contact', ContactController::class);
+    Route::prefix('contact')->group(function () {
+        Route::get('delete/{contact}', [ContactController::class, 'delete'])->name('contact.delete');
+        Route::get('restore/{contact}', [ContactController::class, 'restore'])->name('contact.restore');
+        Route::get('status/{contact}', [ContactController::class, 'status'])->name('contact.status');
+        Route::get('destroy/{contact}', [ContactController::class, 'destroy'])->name('contact.destroy');
+    });
+
+    Route::get('banner/trash', [BannerController::class, 'trash'])->name('banner.trash');
+    Route::resource('/banner', BannerController::class);
+    Route::prefix('banner')->group(function () {
+        Route::get('delete/{banner}', [BannerController::class, 'delete'])->name('banner.delete');
+        Route::get('restore/{banner}', [BannerController::class, 'restore'])->name('banner.restore');
+        Route::get('status/{banner}', [BannerController::class, 'status'])->name('banner.status');
+        Route::get('destroy/{banner}', [BannerController::class, 'destroy'])->name('banner.destroy');
+    });
     
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['verified'])->name('dashboard');
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';

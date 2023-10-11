@@ -1,25 +1,13 @@
-@extends('layouts.app')
-
-@section('content')
-
+@include('backend.menuadmin')
 
 <form  enctype="multipart/form-data" method="POST" action="{{route('category.store')}}">
 @csrf
     <div class="content-wrapper">
+        <x-app-layout>
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <strong class="fs-3">THÊM DANH MỤC</strong>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
+            <strong class="fs-1">THÊM DANH MỤC</strong>
+         
         </section>
 
 
@@ -31,7 +19,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col md-12 text-right">
-                            <button name="THEM" type="submit" class="btn btn-sm btn-primary">
+                            <button name="THEM" type="submit" class="btn btn-sm btn-primary bg-primary">
                                 <i class="fas fa-save"></i> Lưu[Thêm]
                             </button>
                             <a class="btn btn-sm btn-success" href="{{route('category.index')}}">
@@ -92,7 +80,7 @@
         </section>
         <!-- /.content -->
     </div>
+</x-app-layout>
 
 </form>
 
-@endsection

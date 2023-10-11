@@ -1,36 +1,67 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
+
+
+<style>
+    
+
+
+  
+  .foreground-layer {
+    height: 60px;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: rgb(255, 255, 255);
+    
+
+  }
+  .list-inline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+ 
+  
+  .nav-link {
+    padding: 10px;
+    text-decoration: none;
+  }
+
+  .list-inline-item a:hover {
+    color: red;
+  }
+  
+  .list-inline-item a:hover ~ a {
+    opacity: 0.5;
+  }
+  
+  .list-inline-item a.text-muted {
+    transition: opacity 0.3s;
+  }
+  
+</style>
+
+
+
+<div class="foreground-layer">
+  <ul class="list-inline  d-flex justify-content-center align-items-center">
+  <li class="list-inline-item me-5">
+    <a class="nav-link " href="#">Giới thiệu</a>
+  </li>
+  <li class="list-inline-item me-5">
+    <a class="nav-link " href="index.php?option=product">Sản phẩm</a>
+  </li>
+  <li class="list-inline-item me-5">
+    <a class="nav-link " href="#">Tư vấn mua xe</a>
+  </li>
+  <li class="list-inline-item me-5">
+    <a class="nav-link " href="#">Liên hệ</a>
+  </li>
+  <li class="list-inline-item me-5">
+    <a class="nav-link " href="#">dịch vụ</a>
+  </li>
+  <li class="list-inline-item ">
+    <a class="nav-link " href="">Khác</a>
+  </li>
+</ul>
+
   </div>
-</nav>

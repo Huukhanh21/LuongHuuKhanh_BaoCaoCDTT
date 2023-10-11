@@ -1,9 +1,7 @@
-@extends('layouts.app')
-
-@section('content')
-
+@include('backend.menuadmin')
 
 <div class="content-wrapper">
+    <x-app-layout>
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -31,7 +29,7 @@
                     <div class="col-md-6">
 
                     </div>
-                    <div class="  text-right">
+                    <div class="col-md-6 text-right">
                         
                         <a class="btn btn-sm btn-success" href="{{route('category.index')}}">
                                 <i class="fas fa-arrow-left"></i> Quay về danh sách
@@ -51,9 +49,9 @@
                             <th class="text-center" style="width: 30px;">
                                 <input type="checkbox" name="checkAll" />
                             </th>
-                            <th class="text-center">Tên thể loại</th>
-                            <th class="text-center">Slug</th>
-                            <th class="text-center" style="width: 800px;">Mô tả</th>
+                            <th class="text-center" style="width: 200px;">Tên danh mục</th>
+                            <th class="text-center" style="width: 200px;">Slug</th>
+                            <th class="text-center" style="width: 400px;">Mô tả</th>
                             <th class="text-center" style="width: 200px;">Ngày tạo</th>
                             <th class="text-center" style="width: 200px;">Chức năng</th>
                             <th class="text-center" style="width: 30px;">ID</th>
@@ -98,5 +96,5 @@
     </section>
     <!-- /.content -->
 </div>
+</x-app-layout>
 
-@endsection
