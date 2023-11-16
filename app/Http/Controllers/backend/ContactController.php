@@ -15,7 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contact = Contact::where('status','!=',0, )->orderBy('id', 'ASC')->get();
+        $contact = Contact::where('status','!=',0, )->orderBy('id', 'DESC')->get();
         return view('backend.contact.index')->with(compact('contact'));
     }
 
@@ -34,7 +34,7 @@ class ContactController extends Controller
      */
     public function trash()
     {
-        $contact = Contact::where('status','=',0,)->orderby('id','ASC')->get();
+        $contact = Contact::where('status','=',0,)->orderby('id','DESC')->get();
         return view('backend.contact.trash')->with(compact('contact'));
     }
   /**
@@ -47,7 +47,7 @@ class ContactController extends Controller
         $contact ->status = 0;
         $contact->updated_at = date('Y-m-d H:i:s');
         $contact->save();
-        return redirect()->back()->with('status','Xóa danh mục thành công');
+        return redirect()->back()->with('status','Xóa thành công');
     }
 
 
@@ -80,26 +80,19 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:Contact',
-            'email' => 'required',
-            'status' => 'required',
-            'phone' => 'required',
-            'content' => 'required',
-            'title' => 'required',
-          
-        ]);
+   
         $contact = new Contact();
-        $contact->name = $data['name'];
-        $contact->email= $data['email'];
-        $contact->phone = $data['phone'];
-        $contact->content = $data['content'];
-        $contact->title = $data['title'];
-        $contact->status = $data['status'];
+        
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->address = $request->address;
+      
+        $contact->content = $request->content;
         $contact->created_at = date('Y-m-d H:i:s');
 
         $contact->save();
-        return redirect()->back()->with('status','Thêm danh mục thành công');
+        return redirect()->back()->with('status','Thêm thành công');
 
     }
 
@@ -138,17 +131,23 @@ class ContactController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'meta_desc' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'address',
+     
             'status' => 'required',
-            'slug' => 'required',
+       
 
           
         ]);
         $contact = Contact::find($id);
         $contact->name = $data['name'];
-        $contact->slug = $data['slug'];
-        $contact->meta_desc = $data['meta_desc'];
+        $contact->email = $data['email'];
+        $contact->phone = $data['phone'];
+        $contact->address = $data['address'];
+        $contact->content = $data['content'];
         $contact->status = $data['status'];
+        $contact->updated_at = date('Y-m-d H:i:s');
         $contact->save();
         return redirect()->back()->with('status','Cập nhật danh mục thành công');
     }

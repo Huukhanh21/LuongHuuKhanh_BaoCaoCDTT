@@ -8,16 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    public $timestamp = false;
-    protected $fillable =[
-        'name','meta_desc','status','created_at','updated_at'
-    ];
-    protected $primaryKey = 'id';
+    public $timestamps = true;
+  
+
     protected $table = 'category';
 
     public function product()
     {
         return $this -> hasMany('App\Models\Product');
+    }
+    public function ParentCategory()
+    {
+        if ($this->parent_id) {
+            $parentCategory = Category::find($this->parent_id);
+            return $parentCategory ? $parentCategory->name : 'Unknown';
+        } else {
+            return 'Không có danh mục cha';
+        }
     }
 
 }

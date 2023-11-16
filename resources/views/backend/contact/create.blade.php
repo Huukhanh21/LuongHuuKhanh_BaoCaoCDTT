@@ -1,3 +1,5 @@
+@section('title','Liên hệ')
+
 @include('backend.menuadmin')
 
 
@@ -41,6 +43,15 @@
                 </div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     @if(session('status'))
                     <div class="alert alert-success" role="alert">
                         {{(session('status'))}}
@@ -56,16 +67,16 @@
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email</label>
-                                <input name="email" value="{{old('email')}}" id="email" type="text" class="form-control">
+                                <input name="email" value="{{old('email')}}" id="email" type="text" required class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="phone">Số điện thoại</label>
-                                <input name="phone" value="{{old('phone')}}" id="phone" type="text" class="form-control">
+                                <input name="phone" value="{{old('phone')}}" id="phone" type="text" required class="form-control">
                             </div>
                            
                             <div class="mb-3">
-                                <label for="title">Tiêu đề</label>
-                                <input name="title" value="{{old('title')}}" id="title" type="text" class="form-control">
+                                <label for="address">Địa chỉ</label>
+                                <input name="address" value="{{old('address')}}" id="address" type="text" required class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="content">Nội dung</label>

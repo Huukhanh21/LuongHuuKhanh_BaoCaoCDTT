@@ -1,4 +1,12 @@
 <x-guest-layout>
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col fs-1" style="margin-left: 150px; margin-bottom:30px">
+            <strong style="font-size:1.3em">Đặt lại mật khẩu</strong>
+          </div>
+         
+        </div>
+      </div>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -32,7 +40,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button>
-                {{ __('Reset Password') }}
+                {{ __('Đặt lại mật khẩu') }}
             </x-primary-button>
         </div>
     </form>

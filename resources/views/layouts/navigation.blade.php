@@ -12,7 +12,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                     <img src="{{ asset('image/logo1.png') }}" style="width:100px" alt="">
+                   
                     </x-nav-link>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Thoát') }}
+                                {{ __('Đăng xuất') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>

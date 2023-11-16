@@ -4,8 +4,11 @@ namespace App\Http\Controllers\backend;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Brand;
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\http\Controllers\Controller;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::with('category')->where('status','!=',0)->orderBy('id', 'ASC')->get();
+        $product = Product::with('category','brand')->where('status','!=',0)->orderBy('id', 'DESC')->get();
         return view('backend.product.index')->with(compact('product'));
     }
    
@@ -27,16 +30,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $category = Category::where('status','!=',[0,2])->orderBy('id', 'ASC')->get();
-
-        return view('backend.product.create')->with(compact('category'));
-
-    }
+ 
     public function trash()
     {
-        $product = Product::where('status','=',0,)->orderby('id','ASC')->get();
+        $product = Product::where('status','=',0,)->orderby('id','DESC')->get();
         return view('backend.product.trash')->with(compact('product'));
     }
 
@@ -56,7 +53,7 @@ class ProductController extends Controller
         $product ->status = ($product->status == 1) ? 2 : 1;
         $product->updated_at = date('Y-m-d H:i:s');
         $product->save();
-        return redirect()->route("category.index")->with('status','Thay đổi trạng thái thành công');
+        return redirect()->route("product.index")->with('status','Thay đổi trạng thái thành công');
     }
 
     public function restore($id)
@@ -72,40 +69,38 @@ class ProductController extends Controller
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function create()
+    {
+        $category = Category::where('status','=',1)->orderBy('id', 'DESC')->get();
+        $brand = Brand::where('status','=',1)->orderBy('id', 'DESC')->get();
+        $html_category_id = '';
+        foreach ($category as $item)
+        {
+            $html_category_id .= '<option value="' . $item->id . '">' . $item-> name . '</option>';
+        }
+        $html_brand_id = '';
+        foreach ($brand as $item)
+        {
+            $html_brand_id .= '<option value="' . $item->id . '">' . $item-> name . '</option>';
+        }
+        return view('backend.product.create')->with(compact('html_category_id','html_brand_id'));
+
+    }
+    public function store(ProductStoreRequest $request)
     {
       
-        $data = $request->validate([
-          
-            'name' => 'required|max:255',
-            'status' => 'required',
-            'category' => 'required',
-            'qty' => 'required',
-            'price' => 'required',
-            
-            'detail' => 'required',
-            'slug' => 'required|unique:product|max:255',
-            "image" => 'required|image|mimes:jpg,png,jpep,gif,svg|max:2048|
-            dimensions:min_width:100,minheight:100,max_width:1000,max_height:1000',
-           
-          
-        ]);
         $product = new Product();
-        $product->name = $data['name'];
-        $product->slug = $data['slug'];
-        $product->qty = $data['qty'];
-        $product->price = $data['price'];
-        
-        $product->detail = $data['detail'];
-        $product->status = $data['status'];
+        $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->brand_id = $request->brand_id;
+        $product->slug = Str::slug( $product->name = $request->name,'-');
+        $product->price_buy = $request->price_buy;
+        $product->price = $request->price;
+        $product->detail = $request->detail;
+        $product->qty = $request->qty;
+
+        $product->status = $request->status;
         $product->created_at = date('Y-m-d H:i:s');
-        $product->category_id = $data['category'];
 
        // Lấy file ảnh từ request
 $image = $request->file('image');
@@ -131,7 +126,7 @@ if ($image) {
 
 
         $product->save();
-        return redirect()->back()->with('status','Thêm sách thành công');
+        return redirect()->back()->with('status','Thêm sản phẩm thành công');
 }
 
     /**
@@ -142,7 +137,10 @@ if ($image) {
      */
     public function show($id)
     {
-        //
+
+        $product = Product::find($id);
+  
+        return view('backend.product.show',compact('product'));
     }
 
     /**
@@ -152,21 +150,66 @@ if ($image) {
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+
     {
-        //
+        $product = Product::find($id);
+        $category = Category::where('status','=',1)->orderBy('id', 'DESC')->get();
+        $brand = Brand::where('status','=',1)->orderBy('id', 'DESC')->get();
+        $html_category_id = '';
+        foreach ($category as $item)
+        {
+            $html_category_id .= '<option value="' . $item->id . '">' . $item-> name . '</option>';
+        }
+        $html_brand_id = '';
+        foreach ($brand as $item)
+        {
+            $html_brand_id .= '<option value="' . $item->id . '">' . $item-> name . '</option>';
+        }
+   
+        return view('backend.product.edit')->with(compact('product','html_category_id','html_brand_id'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(ProductUpdateRequest $request, $id)
     {
-        //
+
+        $product = Product::find($id);
+   
+        $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->brand_id = $request->brand_id;
+        $product->slug = Str::slug( $product->name = $request->name,'-');
+        $product->price_buy = $request->price_buy;
+        $product->price = $request->price;
+        $product->detail = $request->detail;
+        $product->qty = $request->qty;
+
+        $product->status = $request->status;
+        $product->updated_at = date('Y-m-d H:i:s');
+       // Lấy file ảnh từ request
+        $image = $request->file('image');
+
+        // Kiểm tra xem có file ảnh được tải lên không
+        if ($image) {
+            // Lấy tên gốc của file
+            $originalName = $image->getClientOriginalName();
+
+            // Tạo tên mới cho file ảnh
+            $extension = $image->getClientOriginalExtension();
+            $newImageName = time() . '_' . rand(0, 99) . '.' . $extension;
+
+            // Di chuyển file ảnh vào thư mục lưu trữ
+            $image->move(public_path('image/product'), $newImageName);
+
+            // Gán tên mới của file ảnh vào trường 'image' của đối tượng product
+            $product->image = $newImageName;
+        } else {
+            $product->image = 'default_image.jpg';
+        }
+        $product->save();
+        return redirect()->back()->with('status','Cập nhật sản phẩm thành công');
     }
+   
 
     /**
      * Remove the specified resource from storage.

@@ -1,3 +1,5 @@
+@section('title','Banner')
+
 @include('backend.menuadmin')
 
 <div class="content-wrapper">
@@ -48,49 +50,49 @@
                             <th class="text-center" style="width: 30px;">
                                 <input type="checkbox" name="checkAll" />
                             </th>
-                            <th class="text-center" style="width: 80px;">Ảnh</th>
-
+                            <th class="text-center" style="width: 250px; height=100px;">Ảnh</th>
                             <th class="text-center">Tên baner</th>
                             <th class="text-center">Link</th>
-                          
+                            <th class="text-center">Vị trí</th>
                             <th class="text-center" style="width: 200px;">Ngày tạo</th>
                             <th class="text-center" style="width: 200px;">Chức năng</th>
                             <th class="text-center" style="width: 30px;">ID</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($banner as $key => $banner)
+                        @foreach($banner as $value)
                         <tr>
                             <td class="text-center">
                                 <input type="checkbox" name="checkID[]" value="" />
                             </td>
                             <td class="text-center" >
-                                <img src="{{asset('image/banner/' .$banner->image)}}" height="100" width="80" alt="">
+                                <img src="{{asset('image/banner/' .$value->image)}}" height="100" width="250" alt="">
                             </td>
-                            <td class="text-center">{{$banner->name}}</td>
-                            <td class="text-center">{{$banner->link}}</td>
+                            <td class="text-center">{{$value->name}}</td>
+                            <td class="text-center">{{$value->link}}</td>
+                            <td class="text-center">{{$value->position}}</td>
                          
-                            <td class="text-center">{{$banner->created_at}}</td>
+                            <td class="text-center">{{$value->created_at}}</td>
                             <td class="text-center">
-                                @if($banner->status==1)
-                                <a class="btn btn-sm btn-success">
+                                @if($value->status==1)
+                                <a href="{{ route('banner.status',['banner'=>$value->id]) }}" class="btn btn-sm btn-success" >
                                     <i class="fas fa-toggle-on"></i>
                                 </a>
                                 @else
-                                <a href="" class="btn btn-sm btn-danger">
+                                <a href="{{ route('banner.status',['banner'=>$value->id]) }}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-toggle-off"></i>
                                 </a>
                                 @endif
 
-                                <a href="{{ route('banner.edit', [$banner->id])}}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('banner.edit', [$value->id])}}" class="btn btn-sm btn-primary">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a href="{{ route('banner.delete', [$banner->id])}}" class="btn btn-sm btn-danger">
+                                <a href="{{ route('banner.delete', [$value->id])}}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-times"></i>
                                 </a>
 
                             </td>
-                            <td class="text-center">{{$key}}</td>
+                            <td class="text-center">{{$value->id}}</td>
                         </tr>
                         @endforeach
                     </tbody>

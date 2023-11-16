@@ -1,3 +1,5 @@
+@section('title','Liên hệ')
+
 @include('backend.menuadmin')
 
 <div class="content-wrapper">
@@ -53,7 +55,7 @@
                             <th class="text-center" style="width: 180px";>Tên liên hệ</th>
                             <th class="text-center">Email</th>
                             <th class="text-center" style="width: 150px;">Số điện thoại</th>
-                            <th class="text-center" style="width: 150px;">Tiêu đề</th>
+                            <th class="text-center" style="width: 150px;">Địa chỉ</th>
                        
                             <th class="text-center" style="width: 200px;">Chức năng</th>
                             <th class="text-center" style="width: 30px;">ID</th>
@@ -68,16 +70,16 @@
                             <td class="text-center">{{$value->name}}</td>
                             <td class="text-center">{{$value->email}}</td>
                             <td class="text-center">{{$value->phone}}</td>
-                            <td class="text-center">{{$value->title}}</td>
+                            <td class="text-center">{{$value->address}}</td>
                    
                         
                             <td class="text-center">
                                 @if($value->status==1)
-                                <a class="btn btn-sm btn-success">
+                                <a href="{{ route('contact.status',['contact'=>$value->id]) }}" class="btn btn-sm btn-success">
                                     <i class="fas fa-toggle-on"></i>
                                 </a>
                                 @else
-                                <a href="" class="btn btn-sm btn-danger">
+                                <a href="{{ route('contact.status',['contact'=>$value->id]) }}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-toggle-off"></i>
                                 </a>
                                 @endif

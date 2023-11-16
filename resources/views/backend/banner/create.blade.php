@@ -1,3 +1,4 @@
+@section('title','Banner')
 @include('backend.menuadmin')
 
 
@@ -65,7 +66,13 @@
                                 class="form-control" rows="3" required
                                     placeholder=""></textarea>
                             </div>
-                          
+                            <div class="mb-3">
+                                <label for="position">vị trí</label>
+                                <select name="position" id="position" class="form-control">
+                                    <option value="1">banner 1</option>
+                                    <option value="2">banner 2</option>
+                                </select>
+                            </div>
                           
                             <div class="mb-3">
                                 <label for="image">Hình ảnh</label>

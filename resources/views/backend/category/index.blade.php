@@ -1,3 +1,4 @@
+@section('title','Danh sách danh mục')
 @include('backend.menuadmin')
 
 <div class="content-wrapper">
@@ -53,6 +54,7 @@
                             </th>
                             <th class="text-center">Tên danh mục</th>
                             <th class="text-center">Slug</th>
+                            <th class="text-center">Danh mục cha</th>
                             <th class="text-center" style="width: 300px;">Mô tả</th>
                             <th class="text-center" style="width: 200px;">Ngày tạo</th>
                             <th class="text-center" style="width: 200px;">Chức năng</th>
@@ -60,36 +62,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($category as $key => $cat)
+                        @foreach($category as $key => $value)
                         <tr>
                             <td class="text-center">
                                 <input type="checkbox" name="checkID[]" value="" />
                             </td>
 
-                            <td class="text-center">{{$cat->name}}</td>
-                            <td class="text-center">{{$cat->slug}}</td>
-                            <td>{{$cat->meta_desc}}</td>
-                            <td class="text-center">{{$cat->created_at}}</td>
+                            <td class="text-center">{{$value->name}}</td>
+                            <td class="text-center">{{$value->slug}}</td>
+                            <td class="text-center">{{$value->ParentCategory() }}</td>                            <td>{{$value->meta_desc}}</td>
+                            <td class="text-center">{{$value->created_at}}</td>
                             <td class="text-center">
-                                @if($cat->status==1)
-                                <a href="{{ route('category.status',['category'=>$cat->id]) }}" class="btn btn-sm btn-success">
+                                @if($value->status==1)
+                                <a href="{{ route('category.status',['category'=>$value->id]) }}" class="btn btn-sm btn-success">
                                     <i class="fas fa-toggle-on"></i>
                                 </a>
                                 @else
-                                <a href="{{ route('category.status',['category'=>$cat->id]) }}" class="btn btn-sm btn-danger">
+                                <a href="{{ route('category.status',['category'=>$value->id]) }}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-toggle-off"></i>
                                 </a>
                                 @endif
 
-                                <a href="{{ route('category.edit', [$cat->id])}}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('category.edit', [$value->id])}}" class="btn btn-sm btn-primary">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a href="{{ route('category.delete', [$cat->id])}}" class="btn btn-sm btn-danger">
+                                <a href="{{ route('category.delete', [$value->id])}}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-times"></i>
                                 </a>
 
                             </td>
-                            <td class="text-center">{{$key}}</td>
+                            <td class="text-center">{{$value->id}}</td>
                         </tr>
                         @endforeach
                     </tbody>

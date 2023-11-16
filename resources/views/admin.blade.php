@@ -90,9 +90,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{{ route('productstore.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nhập hàng</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('product.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tất cả sản phẩm</p>
+                  <p>Sản phẩm trong kho</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('productsale.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sản phẩm khuyến mãi</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -121,13 +133,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?option=post" class="nav-link">
+                <a href="{{ route('post.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tất cả bài viết</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?option=topic" class="nav-link">
+                <a href="{{ route('topic.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Chủ đề bài viết</p>
                 </a>
@@ -145,23 +157,12 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?option=order" class="nav-link">
+                <a href="{{ route('order.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Đơn hàng</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="index.php?option=user" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Người dùng</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?option=contact" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Liên hệ</p>
-                </a>
-              </li>
+        
             </ul>
           </li>
 
@@ -183,9 +184,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?option=menu" class="nav-link">
+                <a href="{{ route('menu.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Menu</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('config.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cấu hình</p>
                 </a>
               </li>
             
@@ -193,7 +200,37 @@
           </li>
 
 
-
+          <!-- /người dùng -->
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Người dùng
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('user.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thành viên</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('customer.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Khách hàng</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('contact.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Liên hệ</p>
+                </a>
+              </li>
+            
+            </ul>
+          </li>
 
 
  

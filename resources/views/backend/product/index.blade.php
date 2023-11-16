@@ -1,3 +1,4 @@
+@section('title','Danh sách sản phẩm')
 @include('backend.menuadmin')
 
 <div class="content-wrapper">
@@ -7,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <strong class="fs-3">TẤT CẢ SẢN PHẨM</strong>
+                    <strong class="fs-3">TẤT CẢ SẢN PHẨM KHO</strong>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -50,13 +51,11 @@
                                 <input type="checkbox" name="checkAll" />
                             </th>
                             <th class="text-center" style="width: 100px;">Ảnh bìa</th>
-
-                            <th class="text-center" style="width: 180px";>Tên sản phẩm</th>
+                            <th class="text-center" style="width: 180px;">Tên sản phẩm</th>
                             <th class="text-center">Danh mục</th>
                             <th class="text-center">Slug</th>
-                            <th class="text-center" style="width: 150px;">Giá</th>
-                            <th class="text-center" style="width: 150px;">Giá giảm</th>
-                       
+                            <th class="text-center" style="width: 150px;">Giá nhập</th>
+                            <th class="text-center" style="width: 150px;">Giá bán</th>
                             <th class="text-center" style="width: 200px;">Chức năng</th>
                             <th class="text-center" style="width: 30px;">ID</th>
                         </tr>
@@ -73,22 +72,26 @@
                             <td class="text-center">{{$value->name}}</td>
                             <td class="text-center">{{$value->category->name }}</td>
                             <td class="text-center">{{$value->slug}}</td>
+                            <td class="text-center">{{$value->price_buy}}</td>
+
                             <td class="text-center">{{$value->price}}</td>
-                            <td class="text-center">{{$value->price_sale}}</td>
                         
                             <td class="text-center">
                                 @if($value->status==1)
-                                <a class="btn btn-sm btn-success">
+                                <a href="{{ route('product.status',['product'=>$value->id]) }}" class="btn btn-sm btn-success">
                                     <i class="fas fa-toggle-on"></i>
                                 </a>
                                 @else
-                                <a href="" class="btn btn-sm btn-danger">
+                                <a href="{{ route('product.status',['product'=>$value->id]) }}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-toggle-off"></i>
                                 </a>
                                 @endif
 
                                 <a href="{{ route('product.edit', [$value->id])}}" class="btn btn-sm btn-primary">
                                     <i class="far fa-edit"></i>
+                                </a>
+                                <a href="{{ route('product.show', [$value->id])}}" class="btn btn-sm btn-info">
+                                    <i class="far fa-eye"></i>
                                 </a>
                                 <a href="{{ route('product.delete', [$value->id])}}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-times"></i>

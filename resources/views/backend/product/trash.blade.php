@@ -1,3 +1,4 @@
+@section('title','Thùng rác sản phẩm')
 @include('backend.menuadmin')
 
 <div class="content-wrapper">
@@ -7,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <strong class="fs-3">THÙNG RÁC SẢN PHẨM</strong>
+                    <strong class="fs-3">THÙNG RÁC SẢN PHẨM KHO</strong>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -46,13 +47,11 @@
                             <th class="text-center" style="width: 30px;">
                                 <input type="checkbox" name="checkAll" />
                             </th>
-                            <th class="text-center" style="width: 80px;">Ảnh</th>
-
-                            <th class="text-center">Tên sản phẩm</th>
+                            <th class="text-center" style="width: 100px;">Ảnh bìa</th>
+                            <th class="text-center" style="width: 180px;">Tên sản phẩm</th>
                             <th class="text-center">Danh mục</th>
-                      
                             <th class="text-center">Slug</th>
-                            <th class="text-center" style="width: 200px;">Ngày tạo</th>
+                            <th class="text-center" style="width: 150px;">Giá bán</th>
                             <th class="text-center" style="width: 200px;">Chức năng</th>
                             <th class="text-center" style="width: 30px;">ID</th>
                         </tr>
@@ -67,10 +66,9 @@
                                 <img src="{{asset('image/product/' .$value->image)}}" height="100" width="80" alt="">
                             </td>
                             <td class="text-center">{{$value->name}}</td>
-                            <td class="text-center">{{$value->category->name}}</td>
-
+                            <td class="text-center">{{$value->category->name }}</td>
                             <td class="text-center">{{$value->slug}}</td>
-                            <td class="text-center">{{$value->created_at}}</td>
+                            <td class="text-center">{{$value->price}}</td>
                             <td class="text-center">
 
 

@@ -4,8 +4,11 @@ namespace App\Http\Controllers\backend;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
+use App\Models\Link;
+
 use App\http\Controllers\Controller;
+use Illuminate\Support\Str;
+use App\Http\Requests\CategoryStoreRequest;
 
 
 class CategoryController extends Controller
@@ -17,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::where('status','!=',0, )->orderBy('id', 'ASC')->get();
+        $category = Category::where('status','!=',0, )->orderBy('id', 'DESC')->get();
         return view('backend.category.index')->with(compact('category'));
     }
 
@@ -28,7 +31,13 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.category.create');
+        $category = Category::where('status','!=',0, )->orderBy('id', 'DESC')->get();
+        $html_parent_id = '';
+        foreach ($category as $item)
+        {
+            $html_parent_id .= '<option value="' . $item->id . '">' . $item-> name . '</option>';
+        }
+        return view('backend.category.create', compact('html_parent_id'));
     }
     /**
      *
@@ -36,7 +45,7 @@ class CategoryController extends Controller
      */
     public function trash()
     {
-        $category = Category::where('status','=',0,)->orderby('id','ASC')->get();
+        $category = Category::where('status','=',0,)->orderby('id','DESC')->get();
         return view('backend.category.trash')->with(compact('category'));
     }
   /**
@@ -80,25 +89,25 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:category',
-            'meta_desc' => 'required',
-            'status' => 'required',
-            'slug' => 'required',
-          
-        ]);
         $category = new Category();
-        $category->name = $data['name'];
-        $category->slug = $data['slug'];
-        $category->meta_desc = $data['meta_desc'];
-        $category->status = $data['status'];
+        $category->name = $request->name;
+        $category->slug = Str::slug( $category->name = $request->name,'-');
+        $category->meta_desc = $request->meta_desc;
+        $category->status = $request->status;
+        $category->parent_id = $request->parent_id;
         $category->created_at = date('Y-m-d H:i:s');
-
-        $category->save();
+        if ($category->save())
+        {
+            $link = new Link();
+            $link->slug = $category->slug;
+            $link->type = 'category';
+            $link->table_id = $category->id;
+            $link->save();
+        }
+       
         return redirect()->back()->with('status','Thêm danh mục thành công');
-
     }
 
     /**
@@ -118,10 +127,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit($id)
     {
-        $cat = Category::find($slug);
-        return view('backend.category.edit')->with(compact('cat'));
+        $categoryedit = Category::find($id);
+        $category = Category::where('status','!=',0, )->orderBy('id', 'DESC')->get();
+        $html_parent_id = '';
+        foreach ($category as $item)
+        {
+            $html_parent_id .= '<option value="' . $item->id . '">' . $item-> name . '</option>';
+        }
+        return view('backend.category.edit', compact('html_parent_id','categoryedit'));
 
     }
 
@@ -134,21 +149,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'meta_desc' => 'required',
-            'status' => 'required',
-            'slug' => 'required',
-
-          
-        ]);
         $category = Category::find($id);
-        $category->name = $data['name'];
-        $category->slug = $data['slug'];
-        $category->meta_desc = $data['meta_desc'];
-        $category->status = $data['status'];
-        $category->save();
-        return redirect()->back()->with('status','Cập nhật danh mục thành công');
+        $category->name = $request->name;
+        $category->slug = Str::slug( $category->name = $request->name,'-');
+        $category->meta_desc = $request->meta_desc;
+        $category->status = $request->status;
+        $category->parent_id = $request->parent_id;
+        $category->updated_at = date('Y-m-d H:i:s');
+        if ($category->save())
+        {
+            $link = Link::where([['type','=','category'],['table_id','=',$id]])->first;
+            $link->slug = $category->slug;
+            $link->save();
+        }
+        return redirect()->route('category.index')->with('status', 'Cập nhật danh mục thành công');
     }
 
     /**

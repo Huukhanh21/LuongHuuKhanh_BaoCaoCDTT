@@ -1,4 +1,12 @@
 <x-guest-layout>
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col fs-1" style="margin-left: 150px; margin-bottom:30px">
+            <strong style="font-size:1.3em">Đăng kí</strong>
+          </div>
+         
+        </div>
+      </div>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

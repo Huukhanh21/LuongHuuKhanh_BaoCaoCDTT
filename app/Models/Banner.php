@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Banner extends Model
 {
     use HasFactory;
-    public $timestamp = false;
+    public $timestamps = true;
     protected $fillable = [
         'name' ,'status','position','link','metadesc' ,'image','created_at','updated_at'
     ];

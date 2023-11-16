@@ -1,5 +1,6 @@
-@include('backend.menuadmin')
 
+@section('title','Thêm danh mục')
+@include('backend.menuadmin')
 <form  enctype="multipart/form-data" method="POST" action="{{route('category.store')}}">
 @csrf
     <div class="content-wrapper">
@@ -44,9 +45,12 @@
                                     placeholder="Nhập tên thể loại">
                             </div>
                             <div class="mb-3">
-                                <label for="name">Slug</label>
-                                <input name="slug" id="slug" value="{{old('slug')}}" type="text" class="form-control" required
-                                    >
+                                <label for="parent_id">Cấp cha</label>
+                                <select name="parent_id" id="parent_id" class="form-control">
+                                    <option value="1">--Chọn danh mục cha--</option>
+                                    {!! $html_parent_id !!}
+                                 
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="meta_desc">Mô tả</label>

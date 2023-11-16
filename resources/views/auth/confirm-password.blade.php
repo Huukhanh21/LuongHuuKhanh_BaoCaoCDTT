@@ -1,6 +1,14 @@
 <x-guest-layout>
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col fs-1" style="margin-left: 50px; margin-bottom:30px">
+            <strong style="font-size:1.3em">Xác thực mật khẩu</strong>
+          </div>
+         
+        </div>
+      </div>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+        {{ __('Đây là khu vực an toàn của ứng dụng. Vui lòng xác nhận mật khẩu của bạn trước khi tiếp tục.') }}
     </div>
 
     <form method="POST" action="{{ route('password.confirm') }}">
@@ -20,7 +28,7 @@
 
         <div class="flex justify-end mt-4">
             <x-primary-button>
-                {{ __('Confirm') }}
+                {{ __('Xác nhận') }}
             </x-primary-button>
         </div>
     </form>

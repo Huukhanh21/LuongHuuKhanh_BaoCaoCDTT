@@ -1,3 +1,5 @@
+@section('title','Thương hiệu')
+
 @include('backend.menuadmin')
 
 <div class="content-wrapper">
@@ -59,20 +61,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($brand as $key => $brand)
+                        @foreach($brand as  $value)
                         <tr>
                             <td class="text-center">
                                 <input type="checkbox" name="checkID[]" value="" />
                             </td>
                             <td class="text-center" >
-                                <img src="{{asset('image/brand/' .$brand->image)}}" height="100" width="80" alt="">
+                                <img src="{{asset('image/brand/' .$value->image)}}" height="100" width="80" alt="">
                             </td>
-                            <td class="text-center">{{$brand->name}}</td>
+                            <td class="text-center">{{$value->name}}</td>
                          
-                            <td class="text-center">{{$brand->slug}}</td>
-                            <td class="text-center">{{$brand->created_at}}</td>
+                            <td class="text-center">{{$value->slug}}</td>
+                            <td class="text-center">{{$value->created_at}}</td>
                             <td class="text-center">
-                                @if($brand->status==1)
+                                @if($value->status==1)
                                 <a class="btn btn-sm btn-success">
                                     <i class="fas fa-toggle-on"></i>
                                 </a>
@@ -82,15 +84,15 @@
                                 </a>
                                 @endif
 
-                                <a href="{{ route('brand.edit', [$brand->id])}}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('brand.edit', [$value->id])}}" class="btn btn-sm btn-primary">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a href="{{ route('brand.delete', [$brand->id])}}" class="btn btn-sm btn-danger">
+                                <a href="{{ route('brand.delete', [$value->id])}}" class="btn btn-sm btn-danger">
                                     <i class="fas fa-times"></i>
                                 </a>
 
                             </td>
-                            <td class="text-center">{{$key}}</td>
+                            <td class="text-center">{{$value->id}}</td>
                         </tr>
                         @endforeach
                     </tbody>

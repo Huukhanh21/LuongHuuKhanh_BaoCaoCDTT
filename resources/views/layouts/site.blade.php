@@ -25,10 +25,27 @@
          <img class="" style=" width:200px" src="public/image/logo.png" alt="">
     </div>
     @include('frontend.header')
- 
-    @include('frontend.menu')
-    @include('frontend.banner')
-    @include('frontend.productsale')
+   <x-mainmenu></x-mainmenu>
+   <x-main-banner></x-main-banner>
+    <div class="card-body">
+      <div class="row">
+            <div class="col-md-3 mt-5 ps-5">
+                @include('frontend.category')
+             
+            </div>
+    
+            <div class="col-md-9">
+                <div class="ms-4 mt-5">
+                    <strong>
+                            SẢN PHẨM KHUYẾN MÃI
+                    </strong>
+                    </div>
+                @include('frontend.productsale')
+            </div>
+    </div>
+    </div>
+  
+    @include('frontend.detail')
     @include('frontend.contact')
 
  

@@ -18,7 +18,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = Banner::where('status','!=',0)->orderBy('id', 'ASC')->get();
+        $banner = Banner::where('status','!=',0)->orderBy('id', 'DESC')->get();
         return view('backend.banner.index')->with(compact('banner'));
     }
     
@@ -34,7 +34,7 @@ class BannerController extends Controller
     }
     public function trash()
     {
-        $banner = Banner::where('status','=',0,)->orderby('id','ASC')->get();
+        $banner = Banner::where('status','=',0,)->orderby('id','DESC')->get();
         return view('backend.banner.trash')->with(compact('banner'));
     }
 
@@ -44,7 +44,7 @@ class BannerController extends Controller
         $banner->status = 0;
         $banner->updated_at = date('Y-m-d H:i:s');
         $banner->save();
-        return redirect()->back()->with('status','Xóa thương hiệu thành công');
+        return redirect()->back()->with('status','Xóa banner thành công');
     }
 
 
@@ -54,7 +54,7 @@ class BannerController extends Controller
         $banner ->status = ($banner->status == 1) ? 2 : 1;
         $banner->updated_at = date('Y-m-d H:i:s');
         $banner->save();
-        return redirect()->route("banner.index")->with('status','Thay đổi trạng thái thành công');
+         return redirect()->route("banner.index")->with('status','Thay đổi trạng thái thành công');
     }
 
     public function restore($id)
@@ -86,8 +86,7 @@ class BannerController extends Controller
             'metadesc' => 'required',
             'position' => 'required',
             'link' => 'required',
-            "image" => 'required|image|mimes:jpg,png,jpep,gif,svg|max:2048|
-            dimensions:min_width:100,minheight:100,max_width:1000,max_height:1000',
+            "image" => 'required',
            
           
         ]);
@@ -135,7 +134,7 @@ if ($image) {
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**
@@ -146,7 +145,8 @@ if ($image) {
      */
     public function edit($id)
     {
-        //
+        $banner = Banner::find($id);
+        return view('backend.banner.edit')->with(compact('banner'));
     }
 
     /**
@@ -158,7 +158,51 @@ if ($image) {
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+          
+            'name' => 'required|unique:banner|max:255',
+            'status' => 'required',
+            'metadesc' => 'required',
+            'position' => 'required',
+            'link' => 'required',
+            "image" => 'required',
+           
+          
+        ]);
+        $banner = Banner::find($id);
+        $banner->name = $data['name'];
+        $banner->position= $data['position'];
+        $banner->metadesc= $data['metadesc'];
+        $banner->link= $data['link'];
+        $banner->status = $data['status'];
+        $banner->updated_at = date('Y-m-d H:i:s');
+    
+
+       // Lấy file ảnh từ request
+$image = $request->file('image');
+
+// Kiểm tra xem có file ảnh được tải lên không
+if ($image) {
+    // Lấy tên gốc của file
+    $originalName = $image->getClientOriginalName();
+
+    // Tạo tên mới cho file ảnh
+    $extension = $image->getClientOriginalExtension();
+    $newImageName = time() . '_' . rand(0, 99) . '.' . $extension;
+
+    // Di chuyển file ảnh vào thư mục lưu trữ
+    $image->move(public_path('image/banner'), $newImageName);
+
+    // Gán tên mới của file ảnh vào trường 'image' của đối tượng Banner
+    $banner->image = $newImageName;
+} else {
+    $banner->image = 'default_image.jpg';
+}
+
+
+
+        $banner->save();
+        return redirect()->back()->with('status','Cập nhật thành công');
     }
 
     /**

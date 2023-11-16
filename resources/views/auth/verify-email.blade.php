@@ -1,4 +1,12 @@
 <x-guest-layout>
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col fs-1" style="margin-left: 150px; margin-bottom:30px">
+            <strong style="font-size:1.3em">Bảo mật tài khoản</strong>
+          </div>
+         
+        </div>
+      </div>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
     </div>

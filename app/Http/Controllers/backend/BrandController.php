@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\backend;
 
 use App\Models\Brand;
+use App\Models\Link;
 use App\http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 
 
@@ -18,7 +20,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brand = Brand::where('status','!=',0)->orderBy('id', 'ASC')->get();
+        $brand = Brand::where('status','!=',0)->orderBy('id', 'DESC')->get();
         return view('backend.brand.index')->with(compact('brand'));
     }
     
@@ -34,7 +36,7 @@ class BrandController extends Controller
     }
     public function trash()
     {
-        $brand = Brand::where('status','=',0,)->orderby('id','ASC')->get();
+        $brand = Brand::where('status','=',0,)->orderby('id','DESC')->get();
         return view('backend.brand.trash')->with(compact('brand'));
     }
 
@@ -84,44 +86,53 @@ class BrandController extends Controller
             'name' => 'required|unique:brand|max:255',
             'status' => 'required',
             'metadesc' => 'required',
-            'slug' => 'required|unique:brand|max:255',
-            "image" => 'required|image|mimes:jpg,png,jpep,gif,svg|max:2048|
-            dimensions:min_width:100,minheight:100,max_width:1000,max_height:1000',
+           
+            "image" => 'required',
            
           
+        ],
+        [
+                'name.unique' => 'Tên thương hiệu đã tồn tại! Hãy nhập tên thương hiệu khác.'
         ]);
         $brand = new Brand();
         $brand->name = $data['name'];
-        $brand->slug = $data['slug'];
+        $brand->slug = Str::slug( $brand->name = $request->name,'-');
         $brand->metadesc = $data['metadesc'];
         $brand->status = $data['status'];
         $brand->created_at = date('Y-m-d H:i:s');
     
 
-       // Lấy file ảnh từ request
-$image = $request->file('image');
+        // Lấy file ảnh từ request
+        $image = $request->file('image');
 
-// Kiểm tra xem có file ảnh được tải lên không
-if ($image) {
-    // Lấy tên gốc của file
-    $originalName = $image->getClientOriginalName();
+        // Kiểm tra xem có file ảnh được tải lên không
+        if ($image) {
+         // Lấy tên gốc của file
+        $originalName = $image->getClientOriginalName();
 
-    // Tạo tên mới cho file ảnh
-    $extension = $image->getClientOriginalExtension();
-    $newImageName = time() . '_' . rand(0, 99) . '.' . $extension;
+        // Tạo tên mới cho file ảnh
+        $extension = $image->getClientOriginalExtension();
+        $newImageName = time() . '_' . rand(0, 99) . '.' . $extension;
 
-    // Di chuyển file ảnh vào thư mục lưu trữ
-    $image->move(public_path('image/brand'), $newImageName);
+        // Di chuyển file ảnh vào thư mục lưu trữ
+        $image->move(public_path('image/brand'), $newImageName);
 
-    // Gán tên mới của file ảnh vào trường 'image' của đối tượng Brand
-    $brand->image = $newImageName;
-} else {
-    $brand->image = 'default_image.jpg';
-}
+        // Gán tên mới của file ảnh vào trường 'image' của đối tượng Brand
+        $brand->image = $newImageName;
+        } else {
+        $brand->image = 'default_image.jpg';
+        }
 
 
 
-        $brand->save();
+        if ($brand->save())
+        {
+            $link = new Link();
+            $link->slug = $brand->slug;
+            $link->type = 'brand';
+            $link->table_id = $brand->id;
+            $link->save();
+        }
         return redirect()->back()->with('status','Thêm thương hiệu thành công');
 }
 
@@ -144,7 +155,8 @@ if ($image) {
      */
     public function edit($id)
     {
-        //
+        $brand = Brand::find($id);
+        return view('backend.brand.edit')->with(compact('brand'));
     }
 
     /**
@@ -156,7 +168,45 @@ if ($image) {
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+          
+            'name' => 'required',
+            'status' => 'required',
+            'metadesc' => 'required',
+        ]);
+        $brand = Brand::find($id);
+        $brand->name = $data['name'];
+        $brand->metadesc = $data['metadesc'];
+        $brand->slug = Str::slug( $brand->name = $request->name,'-');
+        $brand->status = $data['status'];
+        $brand->updated_at = date('Y-m-d H:i:s');
+        $image = $request->file('image');
+
+// Kiểm tra xem có file ảnh được tải lên không
+       if ($image) {
+        // Lấy tên gốc của file
+        $originalName = $image->getClientOriginalName();
+
+        // Tạo tên mới cho file ảnh
+        $extension = $image->getClientOriginalExtension();
+        $newImageName = time() . '_' . rand(0, 99) . '.' . $extension;
+
+        // Di chuyển file ảnh vào thư mục lưu trữ
+        $image->move(public_path('image/brand'), $newImageName);
+
+        // Gán tên mới của file ảnh vào trường 'image' của đối tượng Brand
+        $brand->image = $newImageName;
+        } else {
+            $brand->image = 'default_image.jpg';
+        }
+
+        if ($brand->save())
+        {
+            $link = Link::where([['type','=','brand'],['table_id','=',$id]])->first;
+            $link->slug = $brand->slug;
+            $link->save();
+        }
+        return redirect()->back()->with('status','Cập nhật thương hiệu thành công');
     }
 
     /**

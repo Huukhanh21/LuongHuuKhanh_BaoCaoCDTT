@@ -1,3 +1,4 @@
+@section('title','Thùng rác danh mục danh mục')
 @include('backend.menuadmin')
 
 <div class="content-wrapper">

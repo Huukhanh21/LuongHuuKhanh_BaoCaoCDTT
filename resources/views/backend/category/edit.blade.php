@@ -1,7 +1,7 @@
+
+@section('title','Cập nhật danh mục')
 @include('backend.menuadmin')
-
-
-<form enctype="multipart/form-data" method="POST" action="{{route('category.update',[$cat->id])}}">
+<form enctype="multipart/form-data" method="POST" action="{{route('category.update',['category'=>$categoryedit->id])}}">
     @method('PUT')
     @csrf
     <div class="content-wrapper">
@@ -52,18 +52,22 @@
                         <div class="col-md-7">
                             <div class="mb-3">
                                 <label for="name">Tên thể loại</label>
-                                <input name="name" id="name" value="{{$cat->name}}" type="text" class="form-control"
+                                <input name="name" id="name" value="{{$categoryedit->name}}" type="text" class="form-control"
                                     required placeholder="Nhập tên thể loại">
                             </div>
                             <div class="mb-3">
-                                <label for="name">Slug</label>
-                                <input name="slug" id="name" value="{{$cat->slug}}" type="text" class="form-control"
-                                    required >
+                                <label for="parent_id">Cấp cha</label>
+                                <select name="parent_id" id="parent_id" class="form-control">
+                                    <option value="1">--Chọn danh mục cha--</option>
+                                    {!! $html_parent_id !!}
+                                 
+                                </select>
                             </div>
+                           
                             <div class="mb-3">
                                 <label for="meta_desc">Mô tả</label>
                                 <textarea name="meta_desc" id="meta_desc" class="form-control" rows="3" required
-                                    placeholder="">{{ $cat->meta_desc }}</textarea>
+                                    placeholder="">{{ $categoryedit->meta_desc }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="status">Trạng thái</label>

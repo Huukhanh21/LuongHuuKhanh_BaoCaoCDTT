@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+    public $timestamps = true;
+
+    protected $primaryKey = 'id';
+    protected $table = 'menu';
 }

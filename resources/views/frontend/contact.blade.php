@@ -26,6 +26,56 @@ iframe {
 <section class="myfooter bg-dark text-white py-3">
     <div class="container">
 
+            <div class="text-warning bg-dark">
+                <h5>NHẬP THÔNG TIN LIÊN HỆ</h5>
+           
+                <div class="col-mb-3 text-warning bg-dark border border-warning border border-2  ">
+                    <div class="contact-form">
+                        <form enctype="multipart/form-data" method="POST" action="{{route('contact.store')}}">
+                            @csrf
+                            <div class="row" >
+                                <div class="col md-9">
+                                    <div class="mb-3">
+                                        <label for="name">Tên liên hệ</label>
+                                        <input name="name" id="name" value="{{old('name')}}" type="text" class="form-control" required
+                                            placeholder="Nhập họ và tên">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email">Email</label>
+                                        <input name="email" value="{{old('email')}}" id="email" type="text" required class="form-control"  placeholder="Nhập email">
+                                    </div>
+                                   
+                                  
+                                </div>
+                        
+                                <div class="col md-3">
+                                    <div class="mb-3">
+                                        <label for="address">Địa chỉ</label>
+                                        <input name="address" value="{{old('address')}}" id="address" type="text" required class="form-control"  placeholder="Nhập địa chỉ">
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="mb-3">
+                                            <label for="phone">Số điện thoại</label>
+                                            <input name="phone" value="{{old('phone')}}" id="phone" type="text" required class="form-control"  placeholder="Nhập số điện thoại">
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                <div class="text-right " style="">
+                                    <button name="THEM" type="submit" class="btn btn-primary btn-block">
+                                        Gửi
+                                    </button>
+                                </div>
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    <div class="container">
+
         <h3 class="text-center mb-4 mt-4 ">Chi Tiết Liên Hệ </h3>
 
 

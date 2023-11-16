@@ -1,3 +1,6 @@
+@section('title','Thương hiệu')
+
+
 @include('backend.menuadmin')
 
 
@@ -54,15 +57,12 @@
                                 <input name="name" id="name" value="{{old('name')}}" type="text" class="form-control" required
                                     placeholder="Nhập tên thương hiệu">
                             </div>
-                            <div class="mb-3">
-                                <label for="slug">Slug</label>
-                                <input name="slug" value="{{old('slug')}}" id="slug" type="text" class="form-control" required>
-                            </div>
+                          
                             <div class="mb-3">
                                 <label for="metadesc">Mô tả</label>
-                                <textarea name="metadesc" id="meta_desc" value="{{old('meta_desc')}}" 
+                                <textarea name="metadesc" id="metadesc" value="" 
                                 class="form-control" rows="3" required
-                                    placeholder=""></textarea>
+                                    placeholder="">{{old('metadesc')}}</textarea>
                             </div>
             
                           

@@ -1,8 +1,22 @@
+
 <x-guest-layout>
+  
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col fs-1" style="margin-left: 150px; margin-bottom:30px">
+            <strong style="font-size:1.3em">Đăng nhập</strong>
+          </div>
+         
+        </div>
+      </div>
+  
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
+ 
     <form method="POST" action="{{ route('login') }}">
+        
         @csrf
+    
 
         <!-- Email Address -->
         <div>
@@ -33,10 +47,17 @@
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                <a class="me-2 underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
                     {{ __('Quên mật khẩu?') }}
                 </a>
             @endif
+            <div class="ms-2" style="margin-left: 20px">
+                <a href="{{asset('register')}}" class="ms-2 underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                    Đăng kí
+                </a>
+            </div>
+        
+  
 
             <x-primary-button class="ml-3">
                 {{ __('Đăng nhập') }}
